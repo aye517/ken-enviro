@@ -14,7 +14,7 @@ export function Footer() {
       <Container>
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <p className="text-sm text-[#4B5563]">
-            © 2024 KEN (Korea Enviro), All Reserved.
+            © 2024 (주) 한국환경시험원, All Rights Reserved.
           </p>
           <nav className="flex flex-wrap justify-center gap-6">
             {FOOTER_LINKS.map((item) => (

@@ -25,7 +25,7 @@ export function Header() {
             <div className="relative h-14 w-48 overflow-hidden">
               <Image
                 src="/logo/ken-logo.png"
-                alt="KEN Korea Enviro"
+                alt="(주) 한국환경시험원"
                 fill
                 className="object-cover object-center"
                 priority

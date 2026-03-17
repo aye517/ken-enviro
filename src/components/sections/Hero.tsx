@@ -19,7 +19,7 @@ export function Hero() {
         <Container>
           <div className="max-w-2xl">
             <p className="mb-4 text-sm font-semibold tracking-widest text-[#2F6FED]">
-              KEN KOREA ENVIRO
+              (주) 한국환경시험원
             </p>
             <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
               환경을{" "}

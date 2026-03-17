@@ -3,12 +3,12 @@ import Link from "next/link";
 import { Container } from "../layout/Container";
 
 const PORTFOLIO_IMAGES = [
-  { src: "/images/도장시설_검사5.jpg", alt: "도장시설 측정", place: "하남 차량 서비스센터", summary: "도장시설 THC 측정" },
-  { src: "/images/26년1월_보일러.jpg", alt: "보일러 측정", place: "종로 호텔", summary: "대기오염 3종 측정" },
-  { src: "/images/관공서_1.jpg", alt: "관공서 측정", place: "국립박물관", summary: "공공시설 환경관리" },
-  { src: "/images/아스콘_시설2.jpg", alt: "아스콘 시설 측정", place: "아스콘/레미콘 시설", summary: "특정대기유해물질 측정" },
-  { src: "/images/벤조피렌_1.jpg", alt: "벤조피렌 분석", place: "폐기물 처리시설", summary: "먼지 측정" },
-  { src: "/images/관공서_3.jpg", alt: "공공기관 측정", place: "대학교", summary: "보일러 배출가스 검사" },
+  { src: "/images/도장시설_검사5.jpg", alt: "도장시설 측정", place: "하남 차량 서비스센터", summary: "도장시설 THC 측정", href: "https://blog.naver.com/ken241021/224137918805" },
+  { src: "/images/26년1월_보일러.jpg", alt: "보일러 측정", place: "종로 호텔", summary: "대기오염 3종 측정", href: "https://blog.naver.com/ken241021/224194654991" },
+  { src: "/images/관공서_1.jpg", alt: "관공서 측정", place: "국립박물관", summary: "공공시설 환경관리", href: "https://blog.naver.com/ken241021/224173295812" },
+  { src: "/images/아스콘_시설2.jpg", alt: "아스콘 시설 측정", place: "폐기물 처리시설", summary: "먼지 측정", href: "https://blog.naver.com/ken241021/224159939419" },
+  { src: "/images/벤조피렌_1.jpg", alt: "벤조피렌 분석", place: "대학교", summary: "보일러 배출가스 검사", href: "https://blog.naver.com/ken241021/224152497567" },
+  { src: "/images/관공서_3.jpg", alt: "공공기관 측정", place: "아스콘/레미콘 시설", summary: "특정대기유해물질 측정", href: "https://blog.naver.com/ken241021/224143651414" },
 ];
 
 const BLOG_URL = "https://blog.naver.com/ken241021";
@@ -49,9 +49,12 @@ export function Portfolio() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {PORTFOLIO_IMAGES.map((img) => (
-            <div
+            <Link
               key={img.src}
-              className="group relative h-64 overflow-hidden rounded-2xl"
+              href={img.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block h-64 overflow-hidden rounded-2xl"
             >
               <Image
                 src={img.src}
@@ -67,7 +70,7 @@ export function Portfolio() {
                 </h3>
                 <p className="mt-1 text-sm text-white/70">{img.summary}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </Container>

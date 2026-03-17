@@ -11,9 +11,9 @@ const notoSansKR = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "KEN KOREA ENVIRO | 대기자가측정 대행 전문기관",
+  title: "주식회사 한국환경시험원 | 대기자가측정 대행 전문기관",
   description:
-    "환경을 측정하고 데이터로 증명합니다. 대기·유해물질·배출가스 측정 전문기관",
+    "주식회사 한국환경시험원 — 환경을 측정하고 데이터로 증명합니다. 대기·유해물질·배출가스 측정 전문기관",
 };
 
 export default function RootLayout({
