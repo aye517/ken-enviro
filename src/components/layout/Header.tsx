@@ -7,10 +7,10 @@ import { Container } from "./Container";
 import { Button } from "../ui/Button";
 
 const NAV_ITEMS = [
-  { label: "회사소개", href: "/about" },
-  { label: "서비스", href: "/services" },
-  { label: "자료실", href: "/resources" },
-  { label: "문의하기", href: "/contact" },
+  { label: "회사소개", href: "/about", external: false },
+  { label: "서비스", href: "/services", external: false },
+  { label: "블로그", href: "https://blog.naver.com/ken241021", external: true },
+  { label: "문의하기", href: "/contact", external: false },
 ];
 
 export function Header() {
@@ -40,6 +40,9 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                {...(item.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
                 className="text-[13px] font-medium tracking-wide text-[#4B5563] transition-colors hover:text-[#2F6FED]"
               >
                 {item.label}
@@ -83,6 +86,9 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  {...(item.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="text-sm font-medium text-[#111111]"
                   onClick={() => setMobileMenuOpen(false)}
                 >
