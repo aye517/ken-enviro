@@ -1,4 +1,5 @@
 import { Container } from "../layout/Container";
+import { ScrollReveal } from "../ui/ScrollReveal";
 
 /** 측정 항목 — docs/measurement-cases.md 기준 */
 enum MeasurementLabel {
@@ -53,7 +54,7 @@ export function ServicesOverview() {
               MEASUREMENT_LABELS.map((label, i) => (
                 <span
                   key={`${setIdx}-${i}`}
-                  className="mx-8 shrink-0 cursor-default text-3xl font-bold text-[#111111] transition-colors hover:text-[#2F6FED] sm:mx-12 sm:text-4xl"
+                  className="mx-4 shrink-0 cursor-default text-xl font-bold text-[#111111] transition-colors hover:text-[#2F6FED] sm:mx-12 sm:text-4xl"
                 >
                   {label}
                 </span>
@@ -70,21 +71,20 @@ export function ServicesOverview() {
           핵심 측정 서비스
         </h2>
         <div className="grid gap-8 md:grid-cols-3">
-          {SERVICE_CARDS.map((card) => (
-            <div
-              key={card.title}
-              className="group rounded-2xl border border-[#E5E7EB] bg-white p-8 transition-all hover:-translate-y-1 hover:border-[#2F6FED]/30 hover:shadow-lg"
-            >
-              <div className="mb-6 inline-flex rounded-xl bg-[#EAF1FF] p-4 text-[#2F6FED] transition-colors group-hover:bg-[#2F6FED] group-hover:text-white">
-                {card.icon}
+          {SERVICE_CARDS.map((card, i) => (
+            <ScrollReveal key={card.title} delay={i * 120}>
+              <div className="group rounded-2xl border border-[#E5E7EB] bg-white p-8 transition-all hover:-translate-y-1 hover:border-[#2F6FED]/30 hover:shadow-lg">
+                <div className="mb-6 inline-flex rounded-xl bg-[#EAF1FF] p-4 text-[#2F6FED] transition-colors group-hover:bg-[#2F6FED] group-hover:text-white">
+                  {card.icon}
+                </div>
+                <h3 className="text-lg font-semibold text-[#111111]">
+                  {card.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#4B5563]">
+                  {card.description}
+                </p>
               </div>
-              <h3 className="text-lg font-semibold text-[#111111]">
-                {card.title}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#4B5563]">
-                {card.description}
-              </p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </Container>

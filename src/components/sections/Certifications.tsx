@@ -1,4 +1,5 @@
 import { Container } from "../layout/Container";
+import { ScrollReveal } from "../ui/ScrollReveal";
 
 const CERTIFICATIONS = [
   {
@@ -41,19 +42,18 @@ export function Certifications() {
           인증 및 자격
         </h2>
         <div className="grid gap-6 sm:grid-cols-3">
-          {CERTIFICATIONS.map((cert) => (
-            <div
-              key={cert.title}
-              className="flex flex-col items-center rounded-2xl bg-white p-8 text-center transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div className="mb-4 inline-flex rounded-xl bg-[#EAF1FF] p-4 text-[#2F6FED]">
-                {cert.icon}
+          {CERTIFICATIONS.map((cert, i) => (
+            <ScrollReveal key={cert.title} delay={i * 120}>
+              <div className="flex flex-col items-center rounded-2xl bg-white p-8 text-center transition-all hover:-translate-y-1 hover:shadow-lg">
+                <div className="mb-4 inline-flex rounded-xl bg-[#EAF1FF] p-4 text-[#2F6FED]">
+                  {cert.icon}
+                </div>
+                <h3 className="text-lg font-semibold text-[#111111]">
+                  {cert.title}
+                </h3>
+                <p className="mt-2 text-sm text-[#4B5563]">{cert.issuer}</p>
               </div>
-              <h3 className="text-lg font-semibold text-[#111111]">
-                {cert.title}
-              </h3>
-              <p className="mt-2 text-sm text-[#4B5563]">{cert.issuer}</p>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </Container>

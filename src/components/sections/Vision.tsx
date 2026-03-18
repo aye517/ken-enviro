@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Container } from "../layout/Container";
 
 const VISION_ITEMS = [
@@ -30,6 +33,48 @@ const VISION_ITEMS = [
   },
 ];
 
+function VisionCard({ icon, title, description }: { icon: ReactNode; title: string; description: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+      },
+      { threshold: 0.3 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="group bg-[#111111] p-10 transition-colors hover:bg-[#1a1a1a]"
+    >
+      <div
+        className="mb-6 inline-flex rounded-xl bg-[#2F6FED]/10 p-3 text-[#2F6FED] transition-all duration-500 group-hover:bg-[#2F6FED] group-hover:text-white"
+        style={{
+          transform: inView ? "scale(1.2)" : "scale(1)",
+        }}
+      >
+        {icon}
+      </div>
+      <h3 className="text-lg font-semibold text-white">
+        {title}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-white/50 group-hover:text-white/70">
+        {description}
+      </p>
+    </div>
+  );
+}
+
 export function Vision() {
   return (
     <section className="relative overflow-hidden py-24 bg-[#111111]">
@@ -51,20 +96,7 @@ export function Vision() {
 
           <div className="grid gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-3">
             {VISION_ITEMS.map((item) => (
-              <div
-                key={item.title}
-                className="group bg-[#111111] p-10 transition-colors hover:bg-[#1a1a1a]"
-              >
-                <div className="mb-6 inline-flex rounded-xl bg-[#2F6FED]/10 p-3 text-[#2F6FED] transition-colors group-hover:bg-[#2F6FED] group-hover:text-white">
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/50 group-hover:text-white/70">
-                  {item.description}
-                </p>
-              </div>
+              <VisionCard key={item.title} {...item} />
             ))}
           </div>
         </div>

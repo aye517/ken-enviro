@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "../layout/Container";
+import { ScrollReveal } from "../ui/ScrollReveal";
 
 const PORTFOLIO_IMAGES = [
   { src: "/images/도장시설_검사5.jpg", alt: "도장시설 측정", place: "하남 차량 서비스센터", summary: "도장시설 THC 측정", href: "https://blog.naver.com/ken241021/224137918805" },
@@ -48,29 +49,30 @@ export function Portfolio() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {PORTFOLIO_IMAGES.map((img) => (
-            <Link
-              key={img.src}
-              href={img.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative block h-64 overflow-hidden rounded-2xl"
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="absolute bottom-5 left-5">
-                <h3 className="text-lg font-semibold text-white">
-                  {img.place}
-                </h3>
-                <p className="mt-1 text-sm text-white/70">{img.summary}</p>
-              </div>
-            </Link>
+          {PORTFOLIO_IMAGES.map((img, i) => (
+            <ScrollReveal key={img.src} delay={i * 100}>
+              <Link
+                href={img.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative block h-64 overflow-hidden rounded-2xl"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute bottom-5 left-5">
+                  <h3 className="text-lg font-semibold text-white">
+                    {img.place}
+                  </h3>
+                  <p className="mt-1 text-sm text-white/70">{img.summary}</p>
+                </div>
+              </Link>
+            </ScrollReveal>
           ))}
         </div>
       </Container>

@@ -1,3 +1,6 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Container } from "../layout/Container";
 
 const PROCESS_STEPS = [
@@ -23,6 +26,60 @@ const PROCESS_STEPS = [
   },
 ];
 
+function ProcessCard({ step, title, description }: (typeof PROCESS_STEPS)[number]) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  const MQL = "(max-width: 1023px)";
+  const subscribe = useCallback((cb: () => void) => {
+    const mql = window.matchMedia(MQL);
+    mql.addEventListener("change", cb);
+    return () => mql.removeEventListener("change", cb);
+  }, []);
+  const getSnapshot = useCallback(() => window.matchMedia(MQL).matches, []);
+  const isMobile = useSyncExternalStore(subscribe, getSnapshot, () => false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+      },
+      {
+        rootMargin: "-35% 0px -25% 0px",
+        threshold: 0,
+      },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const highlight = isMobile && inView;
+
+  return (
+    <div
+      ref={ref}
+      className="group relative rounded-2xl bg-white p-8 transition-all hover:-translate-y-1 hover:shadow-lg"
+    >
+      <span
+        className="text-5xl font-bold text-[#E5E7EB] transition-colors duration-500 group-hover:text-[#2F6FED]"
+        style={highlight ? { color: "#2F6FED" } : undefined}
+      >
+        {step}
+      </span>
+      <h3 className="mt-4 text-lg font-semibold text-[#111111]">
+        {title}
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-[#4B5563]">
+        {description}
+      </p>
+    </div>
+  );
+}
+
 export function WhatWeDo() {
   return (
     <section className="py-20 bg-[#F5F5F5]">
@@ -36,20 +93,7 @@ export function WhatWeDo() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {PROCESS_STEPS.map((item) => (
-            <div
-              key={item.step}
-              className="group relative rounded-2xl bg-white p-8 transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              <span className="text-5xl font-bold text-[#E5E7EB] transition-colors group-hover:text-[#2F6FED]">
-                {item.step}
-              </span>
-              <h3 className="mt-4 text-lg font-semibold text-[#111111]">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#4B5563]">
-                {item.description}
-              </p>
-            </div>
+            <ProcessCard key={item.step} {...item} />
           ))}
         </div>
       </Container>
