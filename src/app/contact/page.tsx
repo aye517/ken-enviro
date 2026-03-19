@@ -2,9 +2,10 @@ import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "(주) 한국환경시험원 | 문의하기",
+  title: "문의하기",
   description:
     "환경 측정 문의, 견적 요청 등 (주) 한국환경시험원에 문의해 주세요.",
+  alternates: { canonical: "/contact" },
 };
 
 const CONTACT_INFO = [

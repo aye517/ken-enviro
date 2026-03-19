@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/Button";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "(주) 한국환경시험원 | 회사소개",
+  title: "회사소개",
   description:
     "대기오염물질 측정 및 분석 전문기관, (주) 한국환경시험원을 소개합니다.",
+  alternates: { canonical: "/about" },
 };
 
 const COMPANY_INFO = [

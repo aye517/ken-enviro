@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { Container } from "../layout/Container";
 
 const PROCESS_STEPS = [
@@ -26,7 +32,11 @@ const PROCESS_STEPS = [
   },
 ];
 
-function ProcessCard({ step, title, description }: (typeof PROCESS_STEPS)[number]) {
+function ProcessCard({
+  step,
+  title,
+  description,
+}: (typeof PROCESS_STEPS)[number]) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -50,7 +60,7 @@ function ProcessCard({ step, title, description }: (typeof PROCESS_STEPS)[number
       {
         rootMargin: "-35% 0px -25% 0px",
         threshold: 0,
-      },
+      }
     );
 
     observer.observe(el);
@@ -70,9 +80,7 @@ function ProcessCard({ step, title, description }: (typeof PROCESS_STEPS)[number
       >
         {step}
       </span>
-      <h3 className="mt-4 text-lg font-semibold text-[#111111]">
-        {title}
-      </h3>
+      <h3 className="mt-4 text-lg font-semibold text-[#111111]">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-[#4B5563]">
         {description}
       </p>

@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/Button";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "(주) 한국환경시험원 | 서비스",
+  title: "측정 서비스",
   description:
     "대기환경 측정, 유해물질 분석, 배출가스 평가 등 (주) 한국환경시험원의 측정 서비스를 소개합니다.",
+  alternates: { canonical: "/services" },
 };
 
 const SERVICES = [
