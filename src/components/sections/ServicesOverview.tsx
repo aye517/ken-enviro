@@ -41,7 +41,7 @@ export function ServicesOverview() {
           SERVICES
         </p>
         <h2 className="mb-12 text-3xl font-bold text-[#111111] sm:text-4xl">
-          핵심 측정 서비스
+          핵심 측정분야
         </h2>
         <div className="grid gap-8 md:grid-cols-3">
           {SERVICE_CARDS.map((card, i) => (

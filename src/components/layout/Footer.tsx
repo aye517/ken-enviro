@@ -3,7 +3,7 @@ import { Container } from "./Container";
 
 const FOOTER_LINKS = [
   { label: "회사소개", href: "/about" },
-  { label: "서비스", href: "/services" },
+  { label: "측정분야", href: "/services" },
   { label: "블로그", href: "https://blog.naver.com/ken241021" },
   { label: "문의하기", href: "/contact" },
 ];

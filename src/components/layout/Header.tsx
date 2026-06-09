@@ -8,7 +8,7 @@ import { Button } from "../ui/Button";
 
 const NAV_ITEMS = [
   { label: "회사소개", href: "/about", external: false },
-  { label: "서비스", href: "/services", external: false },
+  { label: "측정분야", href: "/services", external: false },
   { label: "블로그", href: "https://blog.naver.com/ken241021", external: true },
   { label: "문의하기", href: "/contact", external: false },
 ];

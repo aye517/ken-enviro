@@ -48,7 +48,7 @@ export function Hero() {
               </p>
               <div className="mt-8">
                 <Button href="/services" size="sm">
-                  서비스 보기
+                  측정분야 보기
                 </Button>
               </div>
             </div>
