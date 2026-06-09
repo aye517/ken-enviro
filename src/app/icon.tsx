@@ -12,31 +12,17 @@ export default function Icon() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           background: "#111111",
+          color: "#ffffff",
+          fontSize: 34,
+          fontWeight: 800,
+          letterSpacing: -2,
+          lineHeight: 1,
         }}
       >
-        <div
-          style={{
-            color: "#ffffff",
-            fontSize: 26,
-            fontWeight: 800,
-            letterSpacing: -1,
-            lineHeight: 1,
-          }}
-        >
-          KEN
-        </div>
-        <div
-          style={{
-            marginTop: 4,
-            width: 30,
-            height: 4,
-            background: "#2F6FED",
-          }}
-        />
+        KEN
       </div>
     ),
     { ...size },
