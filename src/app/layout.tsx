@@ -69,8 +69,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   verification: {
-    // 구글 서치콘솔 등록 시 발급되는 코드를 넣으세요 (google-site-verification)
-    google: "",
+    google: "RKN7-cDWI9O8pVUnhsgjOiLjusAiVZuVXNH2C62n7pQ",
     // 네이버 서치어드바이저 등록 시 발급되는 코드를 넣으세요
     other: {
       "naver-site-verification": "db2bea148ce2f41e5f5c9fcecc95866f6c382d3d",
