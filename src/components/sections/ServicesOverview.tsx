@@ -1,17 +1,6 @@
 import { Container } from "../layout/Container";
 import { ScrollReveal } from "../ui/ScrollReveal";
 
-/** 측정 항목 — docs/measurement-cases.md 기준 */
-enum MeasurementLabel {
-  PM = "PM (먼지)",
-  SOX = "SOx (황산화물)",
-  NOX = "NOx (질소산화물)",
-  THC = "THC (총탄화수소)",
-  BAP = "BaP (벤조[a]피렌)",
-}
-
-const MEASUREMENT_LABELS = Object.values(MeasurementLabel);
-
 const SERVICE_CARDS = [
   {
     title: "대기환경 측정",
@@ -47,22 +36,6 @@ export function ServicesOverview() {
   return (
     <section className="py-20 bg-white">
       <Container>
-        {/* 측정 항목 마키 */}
-        <div className="mb-16 overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap">
-            {Array.from({ length: 4 }, (_, setIdx) =>
-              MEASUREMENT_LABELS.map((label, i) => (
-                <span
-                  key={`${setIdx}-${i}`}
-                  className="mx-4 shrink-0 cursor-default text-xl font-bold text-[#111111] transition-colors hover:text-[#2F6FED] sm:mx-12 sm:text-4xl"
-                >
-                  {label}
-                </span>
-              ))
-            )}
-          </div>
-        </div>
-
         {/* 서비스 카드 */}
         <p className="mb-2 text-sm font-semibold tracking-widest text-[#2F6FED]">
           SERVICES
