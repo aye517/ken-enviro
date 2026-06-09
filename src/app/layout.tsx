@@ -10,7 +10,7 @@ const notoSansKR = Noto_Sans_KR({
   weight: ["400", "500", "600", "700"],
 });
 
-const SITE_URL = "https://koenv.co.kr";
+const SITE_URL = "https://www.koenv.co.kr";
 const SITE_NAME = "주식회사 한국환경시험원";
 const SITE_DESCRIPTION =
   "환경을 측정하고 데이터로 증명합니다. 대기·유해물질·배출가스 측정 전문기관";
