@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://ken-enviro.vercel.app/sitemap.xml",
+    sitemap: "https://koenv.co.kr/sitemap.xml",
   };
 }
