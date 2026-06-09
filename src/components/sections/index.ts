@@ -4,4 +4,5 @@ export { WhatWeDo } from "./WhatWeDo";
 export { Portfolio } from "./Portfolio";
 export { Vision } from "./Vision";
 export { Certifications } from "./Certifications";
+export { NewsSection } from "./NewsSection";
 export { CTA } from "./CTA";

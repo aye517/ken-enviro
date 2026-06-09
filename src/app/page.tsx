@@ -5,6 +5,7 @@ import {
   Portfolio,
   Vision,
   Certifications,
+  NewsSection,
   CTA,
 } from "@/components/sections";
 
@@ -17,6 +18,7 @@ export default function Home() {
       <Portfolio />
       <Vision />
       <Certifications />
+      <NewsSection />
       <CTA />
     </>
   );
