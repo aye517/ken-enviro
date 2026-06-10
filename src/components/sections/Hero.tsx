@@ -36,12 +36,12 @@ export function Hero() {
               <span className="align-baseline text-3xl text-white sm:text-4xl lg:text-5xl">
                 은
               </span>
+              <span className="mt-2 block break-keep text-3xl font-bold leading-snug text-white/95 sm:text-4xl lg:text-5xl">
+                환경을 측정하고
+                <br />
+                데이터로 증명합니다
+              </span>
             </h1>
-            <p className="mt-2 break-keep text-3xl font-bold leading-snug text-white/95 sm:text-4xl lg:text-5xl">
-              환경을 측정하고
-              <br />
-              데이터로 증명합니다
-            </p>
             <p className="mt-5 text-base text-white/70 sm:text-lg">
               대기자가측정 | 특정대기유해물질
             </p>
