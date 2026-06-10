@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 // 자주 측정하는 대표 항목
 const KEY_ITEMS = [
-  { name: "먼지", abbr: "PM" },
+  { name: "먼지", abbr: "Dust" },
   { name: "황산화물", abbr: "SOx" },
   { name: "질소산화물", abbr: "NOx" },
   { name: "일산화탄소", abbr: "CO" },
@@ -48,7 +48,6 @@ const ITEM_GROUPS = [
       "에틸벤젠",
       "포름알데히드",
       "아세트알데히드",
-      "아크롤레인",
       "아크릴로니트릴",
       "디클로로메탄",
       "클로로포름",
@@ -64,7 +63,7 @@ const ITEM_GROUPS = [
   },
   {
     title: "중금속",
-    items: ["카드뮴", "납", "구리", "니켈", "아연", "베릴륨"],
+    items: ["카드뮴", "납", "구리", "니켈", "아연", "크롬", "베릴륨"],
   },
 ];
 
@@ -118,9 +117,9 @@ export default function ServicesPage() {
                 key={item.name}
                 className="rounded-2xl border border-[#E5E7EB] bg-white p-6 text-center transition-all hover:-translate-y-1 hover:border-[#2F6FED]/30 hover:shadow-lg"
               >
-                <p className="text-3xl font-bold text-[#2F6FED]">{item.abbr}</p>
-                <p className="mt-2 text-base font-medium text-[#111111]">
-                  {item.name}
+                <p className="text-2xl font-bold text-[#2F6FED]">{item.name}</p>
+                <p className="mt-2 text-sm font-medium text-[#6B7280]">
+                  {item.abbr}
                 </p>
               </div>
             ))}

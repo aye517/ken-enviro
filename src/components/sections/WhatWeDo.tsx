@@ -13,22 +13,22 @@ const PROCESS_STEPS = [
   {
     step: "01",
     title: "문의 · 상담",
-    description: "시설 현황과 측정 필요 항목을 파악합니다",
+    description: "배출시설 현황과 대상 측정항목 파악 및 견적 발송",
   },
   {
     step: "02",
-    title: "현장 방문",
-    description: "배출구 및 측정 포인트를 사전 조사합니다",
+    title: "측정일정 확정",
+    description: "고객사와의 협의를 통한 측정일정 확정",
   },
   {
     step: "03",
-    title: "정밀 측정",
-    description: "공인 장비로 대기오염물질을 측정합니다",
+    title: "시료채취 및 분석",
+    description: "사업장 방문 시료채취 후 시료분석",
   },
   {
     step: "04",
-    title: "보고서 발행",
-    description: "법적 기준에 맞는 측정 결과를 전달합니다",
+    title: "성적서 발행",
+    description: "대기자가측정 성적서 발행 및 측정분석수수료 입금",
   },
 ];
 
@@ -36,7 +36,8 @@ function ProcessCard({
   step,
   title,
   description,
-}: (typeof PROCESS_STEPS)[number]) {
+  isLast,
+}: (typeof PROCESS_STEPS)[number] & { isLast: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -72,7 +73,7 @@ function ProcessCard({
   return (
     <div
       ref={ref}
-      className="group relative rounded-2xl bg-white p-8 transition-all hover:-translate-y-1 hover:shadow-lg"
+      className="group relative rounded-2xl bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
     >
       <span
         className="text-5xl font-bold text-[#E5E7EB] transition-colors duration-500 group-hover:text-[#2F6FED]"
@@ -84,6 +85,26 @@ function ProcessCard({
       <p className="mt-2 text-sm leading-relaxed text-[#4B5563]">
         {description}
       </p>
+
+      {!isLast && (
+        <span
+          aria-hidden
+          className="absolute -right-[1.75rem] top-1/2 z-10 hidden -translate-y-1/2 text-[#93B4F5] transition-colors group-hover:text-[#2F6FED] lg:block"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 6l6 6-6 6" />
+          </svg>
+        </span>
+      )}
     </div>
   );
 }
@@ -99,9 +120,13 @@ export function WhatWeDo() {
           측정은 이렇게 진행됩니다
         </h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {PROCESS_STEPS.map((item) => (
-            <ProcessCard key={item.step} {...item} />
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {PROCESS_STEPS.map((item, i) => (
+            <ProcessCard
+              key={item.step}
+              {...item}
+              isLast={i === PROCESS_STEPS.length - 1}
+            />
           ))}
         </div>
       </Container>
