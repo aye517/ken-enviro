@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { getBlogPosts, PORTFOLIO_CATEGORY } from "@/lib/naverBlog";
+import { listDocuments } from "@/lib/documents";
 import { NewsListClient } from "./NewsListClient";
 
 export const metadata: Metadata = {
@@ -20,10 +21,14 @@ const NAVER_BLOG_URL = "https://blog.naver.com/ken241021";
 export default async function NewsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; category?: string }>;
+  searchParams: Promise<{ q?: string; category?: string; view?: string }>;
 }) {
-  const { q, category } = await searchParams;
-  const posts = await getBlogPosts({ excludeCategory: PORTFOLIO_CATEGORY });
+  const { q, category, view } = await searchParams;
+  // 블로그 RSS 와 자료실 파일 목록을 병렬로 가져온다.
+  const [posts, documents] = await Promise.all([
+    getBlogPosts({ excludeCategory: PORTFOLIO_CATEGORY }),
+    listDocuments(),
+  ]);
 
   return (
     <section className="py-16 sm:py-20">
@@ -46,7 +51,7 @@ export default async function NewsPage({
           </Button>
         </div>
 
-        {posts.length === 0 ? (
+        {posts.length === 0 && documents.length === 0 ? (
           <div className="rounded-2xl border border-[#E5E7EB] bg-[#F5F5F5] p-12 text-center">
             <p className="text-[#4B5563]">
               소식을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.
@@ -60,8 +65,10 @@ export default async function NewsPage({
         ) : (
           <NewsListClient
             posts={posts}
+            documents={documents}
             initialQuery={q ?? ""}
             initialCategory={category ?? null}
+            initialView={view === "documents" ? "documents" : "news"}
           />
         )}
       </Container>
