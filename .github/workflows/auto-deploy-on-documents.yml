@@ -1,33 +1,30 @@
-# Vercel Hobby 플랜 collaborator commit 자동배포 우회.
+# Vercel 프로덕션 배포 — 모든 main push 처리.
 #
 # 배경:
-#   Vercel Hobby 플랜은 main 브랜치 마지막 commit author 가 프로젝트 owner 가 아니면
-#   자동배포·deploy hook 모두 차단한다. 단순 hook 호출만으로는 우회 불가능.
+#   Vercel Hobby 플랜은 owner 외 collaborator 의 commit 에 대해 자동배포를 차단하고
+#   "Blocked" 항목으로 deployments 리스트에 남긴다. 반복되면 fair-use 위반으로 플래깅
+#   될 수 있어서, Vercel 의 Git 자동배포는 끄고 (Settings → Git → Production Branch
+#   자동배포 OFF) 모든 배포를 이 워크플로로 일원화한다.
 #
-# 해결 원리:
-#   GitHub Action 의 ephemeral runner 에서 commit author 를 owner 정보로 amend 한 뒤
-#   Vercel CLI 로 직접 배포한다. amend 는 runner 안에서만 일어나므로 실제 git history
-#   는 보존된다 (force push 안 함).
+# 동작:
+#   1. main 으로 push 가 들어오면 (작성자 무관) 이 워크플로가 트리거됨.
+#   2. ephemeral runner 에서 commit author 를 owner 정보로 amend
+#      (실제 git history 는 안 건드림 — runner 내부 작업).
+#   3. Vercel CLI 로 prebuilt 배포.
+#   4. owner 자신이 push 했을 때는 amend 가 사실상 no-op (이미 owner 라).
 #
-# 셋업 (한 번만, GitHub repo Settings → Secrets and variables → Actions):
-#   1. VERCEL_TOKEN          — https://vercel.com/account/tokens 에서 발급
-#   2. VERCEL_ORG_ID         — Vercel 대시보드 → Account Settings 의 "Your ID"
-#   3. VERCEL_PROJECT_ID     — Vercel 대시보드 → Project → Settings → General → Project ID
-#   4. VERCEL_OWNER_EMAIL    — Vercel 계정에 등록된 이메일 (owner 본인 이메일)
-#   5. VERCEL_OWNER_NAME     — Vercel 계정 이름 또는 GitHub 사용자명 (예: aye517)
-#
-#   기존 VERCEL_DEPLOY_HOOK 시크릿은 더 이상 안 씀, 삭제해도 됨.
-#
-# trigger: public/documents/** 변경 시. owner 직접 push 면 Vercel 자체 자동배포가
-# 동작하므로 이 워크플로는 그때도 같이 돌지만 무해 (중복 배포는 Vercel 이 정리).
+# 필요 secret (Settings → Secrets and variables → Actions):
+#   - VERCEL_TOKEN          : https://vercel.com/account/tokens 에서 발급
+#   - VERCEL_ORG_ID         : Vercel 계정 ID
+#   - VERCEL_PROJECT_ID     : 이 프로젝트의 ID
+#   - VERCEL_OWNER_EMAIL    : owner Vercel 가입 이메일
+#   - VERCEL_OWNER_NAME     : owner GitHub 사용자명
 
-name: Auto deploy on documents change
+name: Deploy to Vercel
 
 on:
   push:
     branches: [main]
-    paths:
-      - "public/documents/**"
 
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
