@@ -29,6 +29,13 @@ export interface BlogPost {
 const BLOG_ID = "ken241021";
 const RSS_URL = `https://rss.blog.naver.com/${BLOG_ID}.xml`;
 
+/**
+ * 메인 Portfolio(실제 수행 사례) 섹션 전용 카테고리.
+ * 네이버 블로그에서 이 게시판에 올린 글은 Portfolio 에만 노출되고,
+ * 메인 NewsSection · /news 의 "소식 & 자료실" 목록에서는 자동 제외된다.
+ */
+export const PORTFOLIO_CATEGORY = "대표사례";
+
 const MONTHS: Record<string, string> = {
   Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06",
   Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12",
@@ -95,11 +102,25 @@ function parseItem(block: string): BlogPost | null {
   };
 }
 
+export interface GetBlogPostsOptions {
+  /** 반환 개수 상한 (생략 시 전체) */
+  limit?: number;
+  /** 정확히 일치하면 결과에서 제외할 카테고리 (예: "대표사례") */
+  excludeCategory?: string;
+  /** 정확히 일치하는 카테고리만 포함 (Portfolio 처럼 특정 게시판만 가져올 때) */
+  onlyCategory?: string;
+}
+
 /**
  * 네이버 블로그 글 목록을 가져온다.
- * @param limit 가져올 최대 개수 (생략 시 전체)
+ *
+ * 옵션으로 카테고리 포함/제외 필터 + 개수 제한 가능.
+ * 필터는 슬라이스 전에 적용되므로 `limit` 은 필터링 후 개수 기준이다.
  */
-export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
+export async function getBlogPosts(
+  options: GetBlogPostsOptions = {},
+): Promise<BlogPost[]> {
+  const { limit, excludeCategory, onlyCategory } = options;
   let xml: string;
   try {
     const res = await fetch(RSS_URL, {
@@ -114,12 +135,19 @@ export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
     return [];
   }
 
-  const posts: BlogPost[] = [];
+  let posts: BlogPost[] = [];
   const itemRegex = /<item>([\s\S]*?)<\/item>/g;
   let match: RegExpExecArray | null;
   while ((match = itemRegex.exec(xml)) !== null) {
     const post = parseItem(match[1]);
     if (post) posts.push(post);
+  }
+
+  if (onlyCategory) {
+    posts = posts.filter((p) => p.category === onlyCategory);
+  }
+  if (excludeCategory) {
+    posts = posts.filter((p) => p.category !== excludeCategory);
   }
 
   posts.sort((a, b) => b.timestamp - a.timestamp);

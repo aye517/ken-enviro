@@ -3,7 +3,7 @@ import { Button } from "../ui/Button";
 
 export function CTA() {
   return (
-    <section className="py-24 bg-[#111111]">
+    <section className="py-14 bg-[#1F2329]">
       <Container>
         <div className="flex flex-col items-center text-center">
           <p className="mb-2 text-sm font-semibold tracking-widest text-[#2F6FED]">

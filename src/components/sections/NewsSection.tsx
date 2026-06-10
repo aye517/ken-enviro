@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "../layout/Container";
-import { getBlogPosts } from "@/lib/naverBlog";
+import { getBlogPosts, PORTFOLIO_CATEGORY } from "@/lib/naverBlog";
 
 /** 게시 후 7일 이내면 "N" 뱃지 표시 */
 const NEW_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
@@ -11,7 +11,10 @@ function isNewPost(timestamp: number): boolean {
 }
 
 export async function NewsSection() {
-  const posts = await getBlogPosts(3);
+  const posts = await getBlogPosts({
+    limit: 3,
+    excludeCategory: PORTFOLIO_CATEGORY,
+  });
 
   // 네이버 일시 장애 등으로 글을 못 가져오면 섹션 자체를 숨긴다.
   if (posts.length === 0) return null;

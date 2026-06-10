@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "../layout/Container";
-import { Button } from "../ui/Button";
 
 /** 측정 항목 */
 const MEASUREMENT_LABELS = [
@@ -48,26 +47,9 @@ export function Hero() {
             </p>
 
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button href="/services" size="md">
-                측정분야 보기
-              </Button>
-              <a
-                href="tel:0262380100"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 text-base font-medium text-white transition-colors hover:bg-white/10"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="h-4 w-4"
-                  aria-hidden="true"
-                >
-                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-                </svg>
-                02-6238-0100
-              </a>
               <Link
                 href="/contact"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 text-base font-medium text-white transition-colors hover:bg-white/10"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-[#2F6FED] px-6 text-base font-medium text-white transition-colors hover:bg-[#1D5BC7]"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -84,6 +66,20 @@ export function Hero() {
                 </svg>
                 문의 남기기
               </Link>
+              <a
+                href="tel:0262380100"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 text-base font-medium text-white transition-colors hover:bg-white/10"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                  aria-hidden="true"
+                >
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg>
+                02-6238-0100
+              </a>
             </div>
           </div>
         </Container>

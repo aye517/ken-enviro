@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { getBlogPosts } from "@/lib/naverBlog";
+import { getBlogPosts, PORTFOLIO_CATEGORY } from "@/lib/naverBlog";
 import { NewsListClient } from "./NewsListClient";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default async function NewsPage({
   searchParams: Promise<{ q?: string; category?: string }>;
 }) {
   const { q, category } = await searchParams;
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts({ excludeCategory: PORTFOLIO_CATEGORY });
 
   return (
     <section className="py-16 sm:py-20">
