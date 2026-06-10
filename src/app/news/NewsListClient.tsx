@@ -13,42 +13,85 @@ function isNewPost(timestamp: number): boolean {
 
 interface Props {
   posts: BlogPost[];
+  /** URL `?q=...` 로 들어왔을 때 검색창에 미리 채울 초기값 */
+  initialQuery?: string;
+  /** URL `?category=...` 로 들어왔을 때 미리 선택할 카테고리 칩 (정확히 일치) */
+  initialCategory?: string | null;
 }
 
-export function NewsListClient({ posts }: Props) {
-  const [query, setQuery] = useState("");
+export function NewsListClient({
+  posts,
+  initialQuery = "",
+  initialCategory = null,
+}: Props) {
+  const [query, setQuery] = useState(initialQuery);
+  const [activeCategory, setActiveCategory] = useState<string | null>(
+    initialCategory,
+  );
+
+  /** 글에 붙은 카테고리를 수집 → 개수 많은 순으로 칩 배열 생성 */
+  const categories = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const p of posts) {
+      if (p.category) counts.set(p.category, (counts.get(p.category) ?? 0) + 1);
+    }
+    return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+  }, [posts]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return posts;
     return posts.filter((p) => {
+      if (activeCategory && p.category !== activeCategory) return false;
+      if (!q) return true;
       const haystack = [p.title, p.summary, p.category ?? ""]
         .join(" ")
         .toLowerCase();
       return haystack.includes(q);
     });
-  }, [posts, query]);
+  }, [posts, query, activeCategory]);
+
+  const isFiltering = query.trim().length > 0 || activeCategory !== null;
 
   return (
     <>
+      {categories.length > 0 && (
+        <div className="mb-6 flex flex-wrap gap-2">
+          <CategoryChip
+            label="전체"
+            count={posts.length}
+            active={activeCategory === null}
+            onClick={() => setActiveCategory(null)}
+          />
+          {categories.map(([name, count]) => (
+            <CategoryChip
+              key={name}
+              label={name}
+              count={count}
+              active={activeCategory === name}
+              onClick={() => setActiveCategory(name)}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="mb-8 flex flex-col gap-2">
         <input
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="제목·내용·카테고리로 검색"
+          placeholder="제목·내용으로 검색"
           className="w-full max-w-md rounded-full border border-[#E5E7EB] bg-white px-5 py-2.5 text-sm text-[#111111] placeholder:text-[#9CA3AF] focus:border-[#2F6FED] focus:outline-none"
         />
-        {query && (
+        {isFiltering && (
           <p className="text-xs text-[#6B7280]">
-            검색 결과 {filtered.length}건 / 전체 {posts.length}건
+            결과 {filtered.length}건 / 전체 {posts.length}건
           </p>
         )}
       </div>
 
       {filtered.length === 0 ? (
         <div className="rounded-2xl border border-[#E5E7EB] bg-[#F5F5F5] p-12 text-center text-[#4B5563]">
-          검색 결과가 없습니다.
+          {isFiltering ? "결과가 없습니다." : "표시할 글이 없습니다."}
         </div>
       ) : (
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -107,5 +150,37 @@ export function NewsListClient({ posts }: Props) {
         </div>
       )}
     </>
+  );
+}
+
+function CategoryChip({
+  label,
+  count,
+  active,
+  onClick,
+}: {
+  label: string;
+  count: number;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${
+        active
+          ? "border-[#2F6FED] bg-[#2F6FED] text-white"
+          : "border-[#E5E7EB] bg-white text-[#4B5563] hover:border-[#2F6FED] hover:text-[#2F6FED]"
+      }`}
+    >
+      <span>{label}</span>
+      <span
+        className={`text-xs ${active ? "text-white/80" : "text-[#9CA3AF]"}`}
+      >
+        {count}
+      </span>
+    </button>
   );
 }

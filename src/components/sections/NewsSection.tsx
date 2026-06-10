@@ -25,7 +25,7 @@ export async function NewsSection() {
               NEWS
             </p>
             <h2 className="text-3xl font-bold text-[#111111] sm:text-4xl">
-              최신 뉴스 &amp; 소식
+              최신 소식 &amp; 자료
             </h2>
           </div>
           <Link
@@ -49,6 +49,23 @@ export async function NewsSection() {
                 >
                   <span className="hidden w-24 shrink-0 text-sm text-[#6B7280] sm:inline">
                     {post.date}
+                  </span>
+                  <span className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-[#E5E7EB]">
+                    {post.thumbnail ? (
+                      // 네이버 썸네일 CDN은 외부 Referer 차단 → no-referrer 로 우회
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={post.thumbnail}
+                        alt=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center text-[10px] font-bold text-[#9CA3AF]">
+                        KEN
+                      </span>
+                    )}
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="flex items-center gap-2">

@@ -12,7 +12,8 @@ const PORTFOLIO_IMAGES = [
   { src: "/images/관공서_3.jpg", alt: "공공기관 측정", place: "아스콘/레미콘 시설", summary: "특정대기유해물질 측정", href: "https://blog.naver.com/ken241021/224143651414" },
 ];
 
-const BLOG_URL = "https://blog.naver.com/ken241021";
+/** "더보기" — /news 페이지에서 "대기자가측정" 카테고리 칩이 미리 선택된 상태로 진입 */
+const MORE_HREF = "/news?category=대기자가측정";
 
 export function Portfolio() {
   return (
@@ -28,9 +29,7 @@ export function Portfolio() {
             </h2>
           </div>
           <Link
-            href={BLOG_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={MORE_HREF}
             className="group flex items-center gap-2 text-sm font-medium text-[#4B5563] transition-colors hover:text-[#2F6FED]"
           >
             더보기

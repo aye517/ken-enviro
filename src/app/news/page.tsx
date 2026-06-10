@@ -5,7 +5,7 @@ import { getBlogPosts } from "@/lib/naverBlog";
 import { NewsListClient } from "./NewsListClient";
 
 export const metadata: Metadata = {
-  title: "뉴스 · 소식 | 한국환경시험원",
+  title: "소식 · 자료실 | 한국환경시험원",
   description:
     "한국환경시험원의 측정 현장 사례, 대기환경 법규 안내, 공지사항을 확인하세요.",
   alternates: { canonical: "https://www.koenv.co.kr/news" },
@@ -13,7 +13,16 @@ export const metadata: Metadata = {
 
 const NAVER_BLOG_URL = "https://blog.naver.com/ken241021";
 
-export default async function NewsPage() {
+/**
+ * Portfolio 등 외부 섹션에서 `/news?category=대기자가측정` 또는 `/news?q=THC` 형태로
+ * 들어오면 카테고리 칩을 미리 선택하거나 검색창에 미리 채워서 필터된 결과를 보여준다.
+ */
+export default async function NewsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; category?: string }>;
+}) {
+  const { q, category } = await searchParams;
   const posts = await getBlogPosts();
 
   return (
@@ -25,11 +34,11 @@ export default async function NewsPage() {
               NEWS
             </p>
             <h1 className="text-3xl font-bold text-[#111111] sm:text-4xl">
-              뉴스 &amp; 소식
+              소식 &amp; 자료실
             </h1>
             <p className="mt-3 max-w-2xl text-[#4B5563]">
-              측정 현장 사례부터 대기환경 법규 안내까지, 한국환경시험원의 소식을
-              전해드립니다.
+              측정 현장 사례부터 대기환경 법규 안내까지, 한국환경시험원의 소식과
+              자료를 전해드립니다.
             </p>
           </div>
           <Button href={NAVER_BLOG_URL} variant="outline" size="sm">
@@ -49,7 +58,11 @@ export default async function NewsPage() {
             </div>
           </div>
         ) : (
-          <NewsListClient posts={posts} />
+          <NewsListClient
+            posts={posts}
+            initialQuery={q ?? ""}
+            initialCategory={category ?? null}
+          />
         )}
       </Container>
     </section>
