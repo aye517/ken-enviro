@@ -20,9 +20,9 @@ export default function Home() {
       </Suspense>
       <Hero />
       <NewsSection />
-      <ServicesOverview />
-      <WhatWeDo />
+      {/* <ServicesOverview /> */}
       <Portfolio />
+      <WhatWeDo />
       <Vision />
       <Certifications />
       <CTA />

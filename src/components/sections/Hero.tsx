@@ -1,7 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "../layout/Container";
 import { Button } from "../ui/Button";
-import { QuickInquiryForm } from "../forms/QuickInquiryForm";
 
 /** 측정 항목 */
 const MEASUREMENT_LABELS = [
@@ -31,61 +31,59 @@ export function Hero() {
 
       <div className="relative z-10 flex min-h-[80vh] items-center pb-28 pt-20">
         <Container>
-          <div className="grid items-center gap-24 lg:gap-12 lg:grid-cols-2">
-            {/* 좌측 카피 */}
-            <div className="max-w-2xl">
-              <p className="mb-4 text-lg font-bold tracking-wide text-[#2F6FED] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] sm:text-xl">
-                (주) 한국환경시험원
-              </p>
-              <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-                환경을{" "}
-                <span className="text-[#2F6FED]">측정하고</span>
-                <br />
-                데이터로 증명합니다
-              </h1>
-              <p className="mt-6 text-lg text-white/70">
-                대기 | 유해물질 | 배출가스 측정 환경기초
-              </p>
-              <div className="mt-8">
-                <Button href="/services" size="sm">
-                  측정분야 보기
-                </Button>
-              </div>
-            </div>
+          <div className="max-w-3xl">
+            <h1 className="break-keep text-4xl font-extrabold leading-tight tracking-tight text-[#2F6FED] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] sm:text-5xl lg:text-6xl">
+              (주) 한국환경시험원
+              <span className="align-baseline text-3xl text-white sm:text-4xl lg:text-5xl">
+                은
+              </span>
+            </h1>
+            <p className="mt-2 break-keep text-3xl font-bold leading-snug text-white/95 sm:text-4xl lg:text-5xl">
+              환경을 측정하고
+              <br />
+              데이터로 증명합니다
+            </p>
+            <p className="mt-5 text-base text-white/70 sm:text-lg">
+              대기자가측정 | 특정대기유해물질
+            </p>
 
-            {/* 우측 빠른 문의 (고대비 · 큰 글씨) */}
-            <div className="w-full lg:max-w-md lg:justify-self-end">
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <p className="text-sm font-semibold tracking-widest text-[#2F6FED]">
-                    QUICK INQUIRY
-                  </p>
-                  <h2 className="mt-2 text-3xl font-bold text-white">빠른 문의</h2>
-                </div>
-
-                {/* 전화 문의 — 누르면 바로 전화 */}
-                <a
-                  href="tel:0262380100"
-                  className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-white/10 px-3 py-1 transition-colors hover:bg-white/20"
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Button href="/services" size="md">
+                측정분야 보기
+              </Button>
+              <a
+                href="tel:0262380100"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 text-base font-medium text-white transition-colors hover:bg-white/10"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                  aria-hidden="true"
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-4 w-4 shrink-0 text-[#5B97FF]"
-                    aria-hidden="true"
-                  >
-                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-                  </svg>
-                  <span className="text-base font-bold text-white sm:text-lg">
-                    02-6238-0100
-                  </span>
-                </a>
-              </div>
-              <p className="mt-2 text-base text-white/70">
-                전화 또는 연락처를 남겨주시면 빠르게 연락드립니다
-              </p>
-
-              <QuickInquiryForm />
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                </svg>
+                02-6238-0100
+              </a>
+              <Link
+                href="/contact"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 text-base font-medium text-white transition-colors hover:bg-white/10"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                  aria-hidden="true"
+                >
+                  <path d="M12 20h9" />
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                </svg>
+                문의 남기기
+              </Link>
             </div>
           </div>
         </Container>
