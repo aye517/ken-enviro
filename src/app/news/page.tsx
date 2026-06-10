@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { getBlogPosts } from "@/lib/naverBlog";
+import { NewsListClient } from "./NewsListClient";
 
 export const metadata: Metadata = {
   title: "뉴스 · 소식 | 한국환경시험원",
@@ -48,52 +49,7 @@ export default async function NewsPage() {
             </div>
           </div>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <a
-                key={post.link}
-                href={post.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white transition-all hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden bg-[#E5E7EB]">
-                  {post.thumbnail ? (
-                    // 네이버 썸네일 CDN은 외부 도메인 Referer를 403으로 차단한다.
-                    // referrerPolicy="no-referrer" 로 Referer 미전송 → 정상 로딩.
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={post.thumbnail}
-                      alt={post.title}
-                      loading="lazy"
-                      referrerPolicy="no-referrer"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-2xl font-bold text-[#9CA3AF]">
-                      KEN
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <div className="mb-2 flex items-center gap-2">
-                    {post.category && (
-                      <span className="rounded-full bg-[#EAF1FE] px-2.5 py-0.5 text-xs font-medium text-[#2F6FED]">
-                        {post.category}
-                      </span>
-                    )}
-                    <span className="text-xs text-[#4B5563]">{post.date}</span>
-                  </div>
-                  <h2 className="line-clamp-2 font-semibold text-[#111111]">
-                    {post.title}
-                  </h2>
-                  <p className="mt-2 line-clamp-3 text-sm text-[#4B5563]">
-                    {post.summary}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
+          <NewsListClient posts={posts} />
         )}
       </Container>
     </section>

@@ -2,7 +2,10 @@
  * 네이버 블로그 RSS를 가져와 게시글 목록으로 파싱한다.
  *
  * - 직원은 평소처럼 네이버 블로그(blog.naver.com/ken241021)에 글만 쓰면 됨.
- * - 사이트는 RSS를 1시간마다 자동으로 다시 읽어 최신 글을 반영(ISR). DB·관리자 화면 불필요.
+ * - 사이트는 RSS를 24시간마다 자동으로 다시 읽어 최신 글을 반영(ISR).
+ *   글이 며칠에 한 번씩 올라오는 주기이므로 1시간은 과한 호출이라 하루 단위로 둠.
+ * - 관리자가 즉시 반영하고 싶을 때는 `/api/revalidate?key=...` 를 호출하면
+ *   `revalidatePath("/")` / `revalidatePath("/news")` 가 캐시를 무효화해서 다음 요청부터 새 글이 보인다.
  * - 본문은 네이버에 두고, 우리 사이트는 "제목·요약·썸네일·날짜" 목록 + 원문 링크만 보여준다.
  *   (네이버 본문 이미지는 외부에서 핫링크가 막혀 깨지지만, RSS 썸네일은 외부 로딩이 허용됨)
  */
@@ -100,8 +103,8 @@ export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
   let xml: string;
   try {
     const res = await fetch(RSS_URL, {
-      // 1시간마다 백그라운드에서 자동 갱신 (ISR)
-      next: { revalidate: 3600 },
+      // 24시간마다 백그라운드 자동 갱신. 관리자가 /api/revalidate 누르면 즉시 무효화됨.
+      next: { revalidate: 86400 },
       headers: { "User-Agent": "Mozilla/5.0 (compatible; koenv-site/1.0)" },
     });
     if (!res.ok) return [];
