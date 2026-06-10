@@ -1,61 +1,96 @@
+import Link from "next/link";
 import { Container } from "../layout/Container";
 import { ScrollReveal } from "../ui/ScrollReveal";
 
-const SERVICE_CARDS = [
+/**
+ * 메인 측정분야 미리보기.
+ * /services 페이지의 실제 구조 (3개 항목군 + 총 38종) 를 그대로 압축한 카드 미리보기.
+ * 항목 추가/변경이 있으면 /services 와 이 파일 둘 다 업데이트해야 한다.
+ */
+const ITEM_GROUPS = [
   {
-    title: "대기환경 측정",
-    description: "정확하고 신뢰할 수 있는 대기 오염도 측정",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-10 w-10">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15z" />
-      </svg>
-    ),
+    title: "일반 대기오염물질",
+    count: 15,
+    samples: ["먼지", "SOx", "NOx", "CO", "THC"],
   },
   {
-    title: "유해물질 분석",
-    description: "엄격한 기준에 따른 유해물질 분석 및 검증",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-10 w-10">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714a2.25 2.25 0 0 0 .659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M5 14.5l-1.703 4.258A1.125 1.125 0 0 0 4.34 20.25h15.32a1.125 1.125 0 0 0 1.044-1.492L19 14.5m-14 0h14" />
-      </svg>
-    ),
+    title: "특정대기유해물질",
+    count: 16,
+    samples: ["벤젠", "포름알데히드", "클로로포름", "스티렌"],
   },
   {
-    title: "배출가스 평가",
-    description: "정밀한 배출가스 성분 측정 및 종합 평가",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-10 w-10">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5z" />
-      </svg>
-    ),
+    title: "중금속",
+    count: 7,
+    samples: ["카드뮴", "납", "크롬", "니켈"],
   },
 ];
+
+const TOTAL = ITEM_GROUPS.reduce((n, g) => n + g.count, 0);
 
 export function ServicesOverview() {
   return (
     <section className="py-20 bg-white">
       <Container>
-        {/* 서비스 카드 */}
-        <p className="mb-2 text-sm font-semibold tracking-widest text-[#2F6FED]">
-          SERVICES
-        </p>
-        <h2 className="mb-12 text-3xl font-bold text-[#111111] sm:text-4xl">
-          핵심 측정분야
-        </h2>
-        <div className="grid gap-8 md:grid-cols-3">
-          {SERVICE_CARDS.map((card, i) => (
-            <ScrollReveal key={card.title} delay={i * 120}>
-              <div className="group rounded-2xl border border-[#E5E7EB] bg-white p-8 transition-all hover:-translate-y-1 hover:border-[#2F6FED]/30 hover:shadow-lg">
-                <div className="mb-6 inline-flex rounded-xl bg-[#EAF1FF] p-4 text-[#2F6FED] transition-colors group-hover:bg-[#2F6FED] group-hover:text-white">
-                  {card.icon}
+        <div className="mb-12 flex items-end justify-between gap-4">
+          <div>
+            <p className="mb-2 text-sm font-semibold tracking-widest text-[#2F6FED]">
+              SERVICES
+            </p>
+            <h2 className="text-3xl font-bold text-[#111111] sm:text-4xl">
+              측정분야
+            </h2>
+            <p className="mt-3 text-base text-[#4B5563]">
+              대기배출가스 자가측정 총 {TOTAL}개 항목을 측정·분석합니다.
+            </p>
+          </div>
+          <Link
+            href="/services"
+            className="group flex shrink-0 items-center gap-2 text-sm font-medium text-[#4B5563] transition-colors hover:text-[#2F6FED]"
+          >
+            자세히 보기
+            <svg
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5 10a.75.75 0 0 1 .75-.75h6.638L10.23 7.29a.75.75 0 1 1 1.04-1.08l3.5 3.25a.75.75 0 0 1 0 1.08l-3.5 3.25a.75.75 0 1 1-1.04-1.08l2.158-1.96H5.75A.75.75 0 0 1 5 10z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </Link>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {ITEM_GROUPS.map((group, i) => (
+            <ScrollReveal key={group.title} delay={i * 120}>
+              <div className="group flex h-full flex-col rounded-2xl border border-[#E5E7EB] bg-white p-8 transition-all hover:-translate-y-1 hover:border-[#2F6FED]/30 hover:shadow-lg">
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="text-lg font-semibold text-[#111111]">
+                    {group.title}
+                  </h3>
+                  <span className="shrink-0 text-2xl font-bold text-[#2F6FED]">
+                    {group.count}
+                    <span className="ml-0.5 text-sm font-medium text-[#9CA3AF]">
+                      종
+                    </span>
+                  </span>
                 </div>
-                <h3 className="text-lg font-semibold text-[#111111]">
-                  {card.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-[#4B5563]">
-                  {card.description}
-                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {group.samples.map((s) => (
+                    <span
+                      key={s}
+                      className="rounded-full bg-[#F5F5F5] px-3 py-1 text-xs font-medium text-[#4B5563]"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                  <span className="px-1 py-1 text-xs font-medium text-[#9CA3AF]">
+                    외
+                  </span>
+                </div>
               </div>
             </ScrollReveal>
           ))}

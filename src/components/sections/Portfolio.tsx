@@ -45,7 +45,7 @@ export async function Portfolio() {
           : "sm:grid-cols-2 lg:grid-cols-4";
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-[#FAFAFA]">
       <Container>
         <div className="mb-12">
           <p className="mb-2 text-sm font-semibold tracking-widest text-[#2F6FED]">

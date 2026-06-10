@@ -20,11 +20,11 @@ export default function Home() {
       </Suspense>
       <Hero />
       <NewsSection />
-      {/* <ServicesOverview /> */}
+      <ServicesOverview />
       <Portfolio />
       <WhatWeDo />
-      <Vision />
       <Certifications />
+      <Vision />
       <CTA />
     </>
   );
